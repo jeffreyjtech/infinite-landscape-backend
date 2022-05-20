@@ -1,5 +1,5 @@
 <!--  This is a template repo -->
-# my project
+# Placeholder
 
 <!-- Insert short overview here, 1 to 3 sentences -->
 
@@ -11,8 +11,8 @@
 
 ## Installation
 
-1. Clone from this repo `git clone <GIT URL>`
-2. `cd` into `<REPO NAME>`
+1. Clone from this repo `git clone https://github.com/Digital-Dinosaur/back-end.git`
+2. `cd` into `back-end`
 3. Run `npm install`
 4. Optionally, create an .env file with variable `PORT` to assign your preferred port number. The default `PORT` is `3000`.
 
@@ -22,7 +22,10 @@ After installation, run `npm start`.
 
 ## Contributors / Authors
 
+- Brady Camp
 - Jeffrey Jenkins
+- Micha Davis
+- Tanner Percival
 
 ### Credits
 
