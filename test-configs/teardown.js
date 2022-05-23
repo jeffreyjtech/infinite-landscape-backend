@@ -1,9 +1,9 @@
 'use strict';
 
-const { authSequelize } = require('../server/auth/models');
-const { contentSequelize } = require('../server/models/');
+// const { authSequelize } = require('../server/auth/models');
+const { contentDb } = require('../server/models/');
 
 module.exports = () => {
-  authSequelize.drop();
-  contentSequelize.drop();
+  // authSequelize.drop();
+  contentDb.drop({});
 };
