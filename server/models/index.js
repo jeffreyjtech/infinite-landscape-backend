@@ -20,6 +20,6 @@ const storyCollection = new Collection(sequelize, 'stories', storySchema);
 
 module.exports = {
   contentDb: sequelize,
-  profile: profileCollection,
-  story: storyCollection,
+  profileCollection: profileCollection,
+  storyCollection: storyCollection,
 };
