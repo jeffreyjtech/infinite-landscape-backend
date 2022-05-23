@@ -5,9 +5,9 @@ const Collection = require('./Collection');
 const profileSchema = require('./profile');
 const storySchema = require('./story');
 
-const { NODE_ENV, DATABASE_URL } = process.env;
+const { DATABASE_URL } = process.env;
 
-const dbUrl = NODE_ENV === 'test' ? 'sqlite:content' : DATABASE_URL;
+const dbUrl = DATABASE_URL || 'postgresql://localhost:5432';
 
 const config = DATABASE_URL
   ? { dialectOptions: { ssl: { require: true, rejectUnauthorized: false } } }
@@ -15,8 +15,11 @@ const config = DATABASE_URL
 
 const sequelize = new Sequelize(dbUrl, config);
 
+const profileCollection = new Collection(sequelize, 'profiles', profileSchema);
+const storyCollection = new Collection(sequelize, 'stories', storySchema);
+
 module.exports = {
   contentDb: sequelize,
-  profile: new Collection(sequelize, 'profiles', profileSchema),
-  story: new Collection(sequelize, 'stories', storySchema),
+  profile: profileCollection,
+  story: storyCollection,
 };
