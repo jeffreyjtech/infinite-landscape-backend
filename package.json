@@ -1,0 +1,20 @@
+{
+  "name": "infinite-landscape-backend",
+  "version": "1.0.0",
+  "description": "<!--  This is a template repo --> # Placeholder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Digital-Dinosaur/infinite-landscape-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Digital-Dinosaur/infinite-landscape-backend/issues"
+  },
+  "homepage": "https://github.com/Digital-Dinosaur/infinite-landscape-backend#readme"
+}
