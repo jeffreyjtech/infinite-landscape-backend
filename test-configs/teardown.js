@@ -4,6 +4,6 @@ const { authDb } = require('../server/auth/models');
 const { contentDb } = require('../server/models/');
 
 module.exports = () => {
-  authDb.drop();
+  authDb.drop({});
   contentDb.drop({});
 };
