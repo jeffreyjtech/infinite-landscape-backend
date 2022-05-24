@@ -73,18 +73,22 @@ module.exports = (collection, path) => {
     },
   );
 
-  router.delete(
-    `/${path}/:id`,
-    errorOnBadParam('id'),
-    permsBypass('admin'),
-    async (req, res, next) => {
-      try {
-        let record = await collection.delete(req.params.id);
-        res.status(200).json(record);
-      } catch (e) {
-        console.error(e);
-        next(e);
-      }
-    },
-  );
+  if (path !== 'story') {
+    router.delete(
+      `/${path}/:id`,
+      errorOnBadParam('id'),
+      permsBypass('admin'),
+      async (req, res, next) => {
+        try {
+          let record = await collection.delete(req.params.id);
+          res.status(200).json(record);
+        } catch (e) {
+          console.error(e);
+          next(e);
+        }
+      },
+    );
+  }
+  
+  return router;
 };
