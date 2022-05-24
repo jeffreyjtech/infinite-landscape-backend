@@ -1,8 +1,5 @@
 'use strict';
 
-const express = require('express');
-const router = express.Router();
-
 // const bearerAuth = require('./auth/middleware/bearer.js');
 // const permsBypass = require('./auth/middleware/perms.js');
 
@@ -24,7 +21,8 @@ const errorOnBadParam = (paramKey) => (req, res, next) => {
   }
 };
 
-module.exports = (collection, path) => {
+
+module.exports = (collection, path, router) => {
   // router.use(bearerAuth);
 
   router.post(`/${path}`, errorOnEmptyBody, async (req, res, next) => {
@@ -48,6 +46,7 @@ module.exports = (collection, path) => {
   });
 
   router.get(`/${path}/:id`, errorOnBadParam('id'), async (req, res, next) => {
+    console.log();
     try {
       let record = await collection.read(req.params.id);
       res.status(200).json(record);
