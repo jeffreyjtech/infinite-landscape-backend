@@ -75,9 +75,12 @@ describe('Testing story model', () => {
     expect(removedStory).toBeTruthy();
   });
 
-  it('Returns null if record to delete does not exist', async () => {
-    const removedStory = await storyCollection.delete(id);
-
-    expect(removedStory).toBe(null);
+  it('Throws error if record to delete does not exist', async () => {
+    expect.assertions(1);
+    try {
+      await storyCollection.delete(id);
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+    }
   });
 });
