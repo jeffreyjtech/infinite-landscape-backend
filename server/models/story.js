@@ -2,7 +2,7 @@
 
 const { DataTypes } = require('sequelize');
 
-const genres = ['horror', 'sci-fi', 'fantasy'];
+const genres = ['horror', 'sci-fi', 'fantasy', 'medieval', 'contemporary', 'surreal', 'goofy'];
 
 const storySchema = {
   title: { type: DataTypes.STRING, allowNull: false },
