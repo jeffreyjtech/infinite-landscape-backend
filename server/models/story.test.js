@@ -56,7 +56,7 @@ describe('Testing story model', () => {
   });
 
   it('Reads all records', async () => {
-    const storyRecords = await storyCollection.read();
+    const storyRecords = await storyCollection.readAll();
     expect(storyRecords).toBeInstanceOf(Array);
     expect(storyRecords.length).toBe(1);
   });

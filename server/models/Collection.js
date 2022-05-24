@@ -10,11 +10,14 @@ class Collection {
     return instance;
   }
 
-  async read(id = null) {
-    const instance = (await id)
-      ? this.model.findOne({ where: { id } })
-      : this.model.findAll();
+  async read(id) {
+    const instance = await this.model.findOne({ where: { id } });
     return instance;
+  }
+
+  async readAll() {
+    const instances = this.model.findAll();
+    return instances;
   }
 
   // update method, takes in an id, returns the update instance
