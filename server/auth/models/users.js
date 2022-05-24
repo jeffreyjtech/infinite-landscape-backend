@@ -13,7 +13,7 @@ const userModel = (sequelize, DataTypes) => {
     token: {
       type: DataTypes.VIRTUAL,
       get() {
-        return jwt.sign({ handle: this.handle }, SECRET);
+        return jwt.sign({ username: this.username }, SECRET);
       },
     },
   });
@@ -22,8 +22,8 @@ const userModel = (sequelize, DataTypes) => {
     user.password = await bcrypt.hash(user.password, 10);
   });
 
-  model.authenticateBasic = async function (handle, password) {
-    const user = await this.findOne({ where: { handle } });
+  model.authenticateBasic = async function (username, password) {
+    const user = await this.findOne({ where: { username } });
     const valid = await bcrypt.compare(password, user.password);
     if (valid) { return user; }
     throw new Error('Invalid User');
@@ -31,7 +31,7 @@ const userModel = (sequelize, DataTypes) => {
 
   model.authenticateToken = async function (token) {
     const parsedToken = jwt.verify(token, SECRET);
-    const user = await this.findOne({ where: { handle: parsedToken.handle } });
+    const user = await this.findOne({ where: { username: parsedToken.username } });
     if (user) { return user; }
     throw new Error('User Not Found');
   };
