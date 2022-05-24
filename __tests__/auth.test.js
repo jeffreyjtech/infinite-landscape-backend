@@ -10,12 +10,11 @@ describe('Auth Route Testing', () => {
   let testpassword = 'password';
   
   test('Should allow user to signup', async () => {
-    
     let response = await request.post('/signup').send({
       username: testUsername,
       password: testpassword,
     });
-    console.log(response);
+
     expect(response.status).toBe(200);
     expect(response.body.username).toBe(testUsername);
     expect(response.body.password).toBeTruthy();
