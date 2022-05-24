@@ -9,7 +9,7 @@ const { DATABASE_URL } = process.env;
 
 console.log('DATABASE_URL', DATABASE_URL);
 
-const dbUrl = DATABASE_URL || 'postgres://localhost:5432';
+const dbUrl = DATABASE_URL || 'postgresql://localhost:5432';
 
 const config = DATABASE_URL
   ? { dialectOptions: { ssl: { require: true, rejectUnauthorized: false } } }
