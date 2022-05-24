@@ -7,7 +7,7 @@ const storySchema = require('./story');
 
 const { DATABASE_URL } = process.env;
 
-const dbUrl = DATABASE_URL || 'postgresql://localhost:5432';
+const dbUrl = DATABASE_URL || 'postgres://localhost:5432';
 
 const config = DATABASE_URL
   ? { dialectOptions: { ssl: { require: true, rejectUnauthorized: false } } }
