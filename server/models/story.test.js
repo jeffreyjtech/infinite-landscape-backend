@@ -39,16 +39,7 @@ describe('Testing story model', () => {
   it('Throws an error if data fails validation', async () => {
     expect.assertions(1);
     try {
-      await storyCollection.create({ history: ['missingNo'] });
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error);
-    }
-  });
-
-  it('Throws an error if username is not unique', async () => {
-    expect.assertions(1);
-    try {
-      await storyCollection.create(testStoryData);
+      await storyCollection.create({ color: ['missingNo'] });
     } catch (error) {
       expect(error).toBeInstanceOf(Error);
     }
@@ -56,8 +47,6 @@ describe('Testing story model', () => {
 
   it('Returns parse-able JSON in the tooltips property', async () => {
     const story = await storyCollection.read(id);
-
-    console.log(story);
 
     const tooltips = await JSON.parse(story.tooltips);
 
