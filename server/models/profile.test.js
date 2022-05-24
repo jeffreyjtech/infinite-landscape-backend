@@ -4,14 +4,12 @@ const { profileCollection } = require('.');
 
 describe('Testing profile model', () => {
   /*
-    title: { type: DataTypes.STRING, allowNull: false },
-    username: { type: DataTypes.STRING, allowNull: false },
-    penName: { type: DataTypes.STRING, allowNull: false },
-    storyId: { type: DataTypes.STRING, allowNull: false, unique: true },
-    description: { type: DataTypes.STRING, allowNull: false },
-    category: { type: DataTypes.ENUM(genres), allowNull: false },
-    color: { type: DataTypes.STRING, allowNull: false },
-    tooltips: { type: DataTypes.JSON },
+    profileSchema = {
+      username: { type: DataTypes.STRING, allowNull: false, unique: true },
+      history: { type: DataTypes.ARRAY(DataTypes.STRING) },
+      favorites: { type: DataTypes.ARRAY(DataTypes.STRING) },
+      contributions: { type: DataTypes.ARRAY(DataTypes.STRING) },
+    };
   */
 
   const testProfileData = {
