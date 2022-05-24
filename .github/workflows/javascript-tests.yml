@@ -42,5 +42,5 @@ jobs:
           npm i
           npm test
         env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
 
