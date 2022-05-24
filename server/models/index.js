@@ -7,8 +7,6 @@ const storySchema = require('./story');
 
 const { DATABASE_URL, NODE_ENV } = process.env;
 
-console.log('DATABASE_URL', DATABASE_URL);
-
 const dbUrl = DATABASE_URL || 'postgresql://localhost:5432';
 
 const config =
