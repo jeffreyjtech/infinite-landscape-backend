@@ -7,6 +7,7 @@ const router = {
   get: jest.fn(),
   put: jest.fn(),
   delete: jest.fn(),
+  use: jest.fn(),
 };
 
 const testCollection = {
@@ -57,7 +58,7 @@ describe('Testing the router constructor', () => {
   });
   it('Has a PUT route', async () => {
     const calls = router.put.mock.calls;
-    const middleware = calls[0][3];
+    const middleware = calls[0][4];
     await middleware(req, res, next);
     expect(testCollection.update).toHaveBeenCalledWith(req.params.id, req.body);
     expect(res.status).toHaveBeenCalledWith(200);
@@ -65,7 +66,7 @@ describe('Testing the router constructor', () => {
   });
   it('Has a DELETE route', async () => {
     const calls = router.delete.mock.calls;
-    const middleware = calls[0][2];
+    const middleware = calls[0][3];
     await middleware(req, res, next);
     expect(testCollection.delete).toHaveBeenCalledWith(req.params.id);
     expect(res.status).toHaveBeenCalledWith(200);
