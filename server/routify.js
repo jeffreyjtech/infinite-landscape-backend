@@ -73,7 +73,7 @@ module.exports = (collection, path) => {
     },
   );
 
-  if (path !== 'story') {
+  if (path !== 'profile') {
     router.delete(
       `/${path}/:id`,
       errorOnBadParam('id'),
