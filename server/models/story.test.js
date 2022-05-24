@@ -56,7 +56,7 @@ describe('Testing story model', () => {
   });
 
   it('Reads all records', async () => {
-    const storyRecords = await storyCollection.read();
+    const storyRecords = await storyCollection.readAll();
     expect(storyRecords).toBeInstanceOf(Array);
     expect(storyRecords.length).toBe(1);
   });
@@ -75,9 +75,12 @@ describe('Testing story model', () => {
     expect(removedStory).toBeTruthy();
   });
 
-  it('Returns null if record to delete does not exist', async () => {
-    const removedStory = await storyCollection.delete(id);
-
-    expect(removedStory).toBe(null);
+  it('Throws error if record to delete does not exist', async () => {
+    expect.assertions(1);
+    try {
+      await storyCollection.delete(id);
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+    }
   });
 });

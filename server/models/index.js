@@ -10,9 +10,9 @@ const { DATABASE_URL, NODE_ENV } = process.env;
 const dbUrl = DATABASE_URL || 'postgresql://localhost:5432';
 
 const config =
-  NODE_ENV !== 'test'
+  NODE_ENV !== 'test' && DATABASE_URL
     ? { dialectOptions: { ssl: { require: true, rejectUnauthorized: false } } }
-    : {};
+    : { /*logging: false*/ };
 
 const sequelize = new Sequelize(dbUrl, config);
 

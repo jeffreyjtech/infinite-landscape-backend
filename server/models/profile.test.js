@@ -51,7 +51,7 @@ describe('Testing profile model', () => {
   });
 
   it('Reads all records', async () => {
-    const profileRecords = await profileCollection.read();
+    const profileRecords = await profileCollection.readAll();
     expect(profileRecords).toBeInstanceOf(Array);
     expect(profileRecords.length).toBe(1);
   });
@@ -70,9 +70,12 @@ describe('Testing profile model', () => {
     expect(removedProfile).toBeTruthy();
   });
 
-  it('Returns null if record to delete does not exist', async () => {
-    const removedProfile = await profileCollection.delete(id);
-
-    expect(removedProfile).toBe(null);
+  it('Throws error if record to delete does not exist', async () => {
+    expect.assertions(1);
+    try {
+      await profileCollection.delete(id);
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+    }
   });
 });

@@ -1,7 +1,13 @@
 'use strict';
 
 const express = require('express');
+const { profileCollection, storyCollection } = require('./models');
+const routify = require('./routify');
+const router = express.Router();
 const app = express();
+
+app.use(routify(profileCollection, 'profile', router));
+app.use(routify(storyCollection, 'story', router));
 
 module.exports = {
   app,
