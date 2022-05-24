@@ -1,7 +1,7 @@
 'use strict';
 
-// const bearerAuth = require('./auth/middleware/bearer.js');
-// const permsBypass = require('./auth/middleware/perms.js');
+const bearerAuth = require('./auth/middleware/bearer.js');
+const perms = require('./auth/middleware/perms.js');
 
 const errorWithStatus = require('./error/errorWithStatus');
 
@@ -23,7 +23,7 @@ const errorOnBadParam = (paramKey) => (req, res, next) => {
 
 
 module.exports = (collection, path, router) => {
-  // router.use(bearerAuth);
+  router.use(bearerAuth);
 
   router.post(`/${path}`, errorOnEmptyBody, async (req, res, next) => {
     try {
@@ -60,7 +60,7 @@ module.exports = (collection, path, router) => {
     `/${path}/:id`,
     errorOnBadParam('id'),
     errorOnEmptyBody,
-    // permsBypass('admin'),
+    perms(collection),
     async (req, res, next) => {
       try {
         let record = await collection.update(req.params.id, req.body);
@@ -76,7 +76,7 @@ module.exports = (collection, path, router) => {
     router.delete(
       `/${path}/:id`,
       errorOnBadParam('id'),
-      // permsBypass('admin'),
+      perms(collection),
       async (req, res, next) => {
         try {
           let record = await collection.delete(req.params.id);
@@ -88,6 +88,6 @@ module.exports = (collection, path, router) => {
       },
     );
   }
-  
+
   return router;
 };
