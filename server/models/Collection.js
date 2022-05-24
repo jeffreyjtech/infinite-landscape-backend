@@ -1,5 +1,7 @@
 'use strict';
 
+const errorWithStatus = require('../error/errorWithStatus');
+
 class Collection {
   constructor(sequelize, name, schema) {
     this.model = sequelize.define(name, schema);
@@ -12,6 +14,9 @@ class Collection {
 
   async read(id) {
     const instance = await this.model.findOne({ where: { id } });
+    if (instance === null){
+      throw errorWithStatus(`Resource with id ${id} not found`, 404);
+    }
     return instance;
   }
 
