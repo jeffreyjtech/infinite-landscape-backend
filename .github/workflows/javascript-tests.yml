@@ -43,3 +43,4 @@ jobs:
           npm test
         env:
           CI: true
+          PGPASSWORD: postgres
