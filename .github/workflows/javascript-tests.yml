@@ -3,9 +3,10 @@ name: Run Javascript Tests
 on: [push]
 
 env:
-  DB_HOST: localhost
-  DB_USERNAME: postgres
-  DB_PASSWORD: postgres
+  POSTGRES_HOST: localhost
+  POSTGRES_USERNAME: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_PORT: 5432
 
 jobs:
   build:
@@ -42,5 +43,3 @@ jobs:
           npm i
           npm test
         env:
-          CI: true
-          PGPASSWORD: postgres
