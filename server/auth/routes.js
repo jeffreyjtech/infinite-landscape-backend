@@ -9,7 +9,7 @@ const bearerAuth = require('./middleware/bearer.js');
 
 router.post('/signup', async (req, res, next) => {
   try {
-    if (!req.body.handle || !req.body.displayName || !req.body.password) {
+    if (!req.body.username || !req.body.password) {
       throw new Error('Need to enter value in all fields');
     }
     let userRecord = await users.create(req.body);

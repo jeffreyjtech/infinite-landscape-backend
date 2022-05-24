@@ -1,10 +1,10 @@
 'use strict';
 
-// const { authSequelize } = require('../server/auth/models');
+const { authDb } = require('../server/auth/models');
 const { contentDb } = require('../server/models/');
 
 module.exports = async () => {
-  // await authSequelize.sync();
+  await authDb.sync();
   await contentDb.sync();
   console.log('TEST Databases are synced');
 };
