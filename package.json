@@ -4,7 +4,7 @@
   "description": "<!--  This is a template repo --> # Placeholder",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage --verbose",
     "start": "node index.js",
     "init:config": "sequelize init:config",
     "db:create": "sequelize db:create"
