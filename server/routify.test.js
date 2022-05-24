@@ -22,31 +22,58 @@ const req = {
   body: { test: 'test-body' },
 };
 
-const res = jest.fn();
+const res = {
+  status: jest.fn(() => res),
+  json: jest.fn(() => res),
+};
 const next = jest.fn();
 
 describe('Testing the router constructor', () => {
-  const newRoute = routify(testCollection, 'test', router);
-  const calls = router.get.mock.calls;
+  routify(testCollection, 'test', router);
 
-  it('Has a GET route', () => {
+  it('Has a GET route', async () => {
+    const calls = router.get.mock.calls;
     const middleware = calls[0][1];
-    console.log(middleware(req, res, next));
-    expect().toHaveBeenCalled();
+    await middleware(req, res, next);
+    expect(testCollection.readAll).toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalled();
   });
-  it('Has a POST route', () => {
-    expect(true).toBe(false);
+  it('Has a POST route', async () => {
+    const calls = router.post.mock.calls;
+    const middleware = calls[0][2];
+    await middleware(req, res, next);
+    expect(testCollection.create).toBeCalledWith(req.body);
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalled();
   });
-  it('Has a GET with id route', () => {
-    expect(true).toBe(false);
+  it('Has a GET with id route', async () => {
+    const calls = router.get.mock.calls;
+    const middleware = calls[1][2];
+    await middleware(req, res, next);
+    expect(testCollection.read).toHaveBeenCalledWith(req.params.id);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalled();
   });
-  it('Has a PUT route', () => {
-    expect(true).toBe(false);
+  it('Has a PUT route', async () => {
+    const calls = router.put.mock.calls;
+    const middleware = calls[0][3];
+    await middleware(req, res, next);
+    expect(testCollection.update).toHaveBeenCalledWith(req.params.id, req.body);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalled();
   });
-  it('Has a DELETE route', () => {
-    expect(true).toBe(false);
+  it('Has a DELETE route', async () => {
+    const calls = router.delete.mock.calls;
+    const middleware = calls[0][2];
+    await middleware(req, res, next);
+    expect(testCollection.delete).toHaveBeenCalledWith(req.params.id);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalled();
   });
+
+  routify(testCollection, 'profile', router);
   it('Does not have a DELETE route for profile path', () => {
-    expect(true).toBe(false);
+    expect(router.delete).toHaveBeenCalledTimes(1);
   });
 });
