@@ -1,10 +1,10 @@
 'use strict';
 
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const Collection = require('./Collection');
 const profileSchema = require('./profile');
 const storySchema = require('./story');
-const adjacencySchema = require('./adjacencies');
+const adjacencyModel = require('./adjacencies');
 
 const { DATABASE_URL, NODE_ENV } = process.env;
 
@@ -19,11 +19,12 @@ const sequelize = new Sequelize(dbUrl, config);
 
 const profileCollection = new Collection(sequelize, 'profiles', profileSchema);
 const storyCollection = new Collection(sequelize, 'stories', storySchema);
-const adjacencyCollection = new Collection(sequelize, 'adjacencies', adjacencySchema);
+
+const adjacencies = adjacencyModel(sequelize, DataTypes);
 
 module.exports = {
   contentDb: sequelize,
   profileCollection: profileCollection,
   storyCollection: storyCollection,
-  adjacencyCollection: adjacencyCollection,
+  adjacencies: adjacencies,
 };
