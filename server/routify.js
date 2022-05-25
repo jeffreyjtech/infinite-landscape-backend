@@ -2,8 +2,10 @@
 
 const bearerAuth = require('./auth/middleware/bearer.js');
 const perms = require('./auth/middleware/perms.js');
+const findNeighbors = require('./middleware/findNeighbors');
 
 const errorWithStatus = require('./error/errorWithStatus');
+const { adjacencyCollection, storyCollection } = require('./models/index.js');
 
 const errorOnEmptyBody = (req, res, next) => {
   if (!req.body) {
@@ -24,6 +26,42 @@ const errorOnBadParam = (paramKey) => (req, res, next) => {
 
 module.exports = (collection, path, router) => {
   router.use(bearerAuth);
+
+  router.get('/graph/:id', async (req, res, next) => {
+    try {
+      let neighbors = await collection.read(req.params.id);
+      let subGraph = [];
+      while (neighbors) {
+        subGraph.push(await collection.read(neighbors.pop().id));
+      }
+      res.status(200).json(subGraph);
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  },
+  );
+
+  router.post('/graph', async (req, res, next) => {
+    let response;
+    try {
+      let potentialNeighbors = await storyCollection.read({ where: { category: req.body.category } });
+      if (potentialNeighbors) {
+        for (let neighbor of potentialNeighbors) {
+          let neighbors = await collection.read(neighbor.id);
+          if (neighbors.length < 4) {
+            neighbor.neighbors.push(req.body);
+            response = await collection.update(neighbor.id, neighbor);
+            break;
+          }
+        }
+        res.send(204).json(response);
+      }
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  });
 
   router.post(`/${path}`, errorOnEmptyBody, async (req, res, next) => {
     try {
@@ -88,6 +126,7 @@ module.exports = (collection, path, router) => {
       },
     );
   }
+
 
   return router;
 };
