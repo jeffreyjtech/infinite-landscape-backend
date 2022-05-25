@@ -2,23 +2,22 @@ const { storyCollection } = require('.');
 
 describe('Testing story model', () => {
   /*
-   title: { type: DataTypes.STRING, allowNull: false },
+  label: { type: DataTypes.STRING, allowNull: false },
   username: { type: DataTypes.STRING, allowNull: false },
   penName: { type: DataTypes.STRING, allowNull: false },
-  storyId: { type: DataTypes.STRING, allowNull: false, unique: true },
+  _id: { type: DataTypes.STRING, allowNull: false, unique: true },
   description: { type: DataTypes.STRING, allowNull: false },
-  category: { type: DataTypes.ENUM(genres), allowNull: false },
+  group: { type: DataTypes.ENUM(genres), allowNull: false },
   color: { type: DataTypes.STRING, allowNull: false },
   tooltips: { type: DataTypes.JSON },
   */
 
   const testStoryData = {
-    title: 'The best test story ever',
+    label: 'The best test story ever',
     username: 'test-user',
     penName: 'testy-mctesterson',
-    storyId: 'uuid-i-gu3ss',
     description: 'Hello word',
-    category: 'horror',
+    group: 'horror',
     color: 'ffffff',
     tooltips: JSON.stringify([{ desk: 'its brown' }]),
   };
