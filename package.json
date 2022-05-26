@@ -1,0 +1,35 @@
+{
+  "name": "infinite-landscape-backend",
+  "version": "1.0.0",
+  "description": "<!--  This is a template repo --> # Placeholder",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage --verbose",
+    "start": "node index.js",
+    "init:config": "sequelize init:config",
+    "db:create": "sequelize db:create"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Digital-Dinosaur/infinite-landscape-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Digital-Dinosaur/infinite-landscape-backend/issues"
+  },
+  "homepage": "https://github.com/Digital-Dinosaur/infinite-landscape-backend#readme",
+  "dependencies": {
+    "base-64": "^1.0.0",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jest": "^28.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.3",
+    "sequelize": "^6.20.0",
+    "sequelize-cli": "^6.4.1",
+    "supertest": "^6.2.3"
+  }
+}
