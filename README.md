@@ -19,6 +19,7 @@
 ## Usage
 
 After installation, run `npm start`.
+Heroku Deployment:
 
 ## Contributors / Authors
 
