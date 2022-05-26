@@ -1,5 +1,4 @@
 'use strict';
-
 const { Sequelize, DataTypes } = require('sequelize');
 const Collection = require('./Collection');
 const profileSchema = require('./profile');
@@ -20,6 +19,26 @@ const sequelize = new Sequelize(dbUrl, config);
 const profileCollection = new Collection(sequelize, 'profiles', profileSchema);
 const storyCollection = new Collection(sequelize, 'stories', storySchema);
 
+storyCollection.create = async function (json) {
+  let potentialNeighborStories = await this.readAllInGroup(json.group);
+
+  if(potentialNeighborStories.length === 0) {
+    let record = await this.model.create({ ...json, neighbors: [] });
+    return record;
+  }
+
+  // if (potentialNeighborStories.dataValues.neighbors.length) {
+  for (let neighborStory of potentialNeighborStories) {
+    if (neighborStory.dataValues.id !== json.id) {
+      if (neighborStory.dataValues.neighbors.length < 4) {
+        let newStory = await this.model.create({ ...json, neighbors: [neighborStory.dataValues.id] });
+        await this.update(neighborStory.dataValues.id, {neighbors: [...neighborStory.dataValues.neighbors, newStory.id] });
+
+        return newStory;
+      }
+    }
+  }
+};
 //const adjacencies = adjacencyModel(sequelize, DataTypes);
 
 module.exports = {
