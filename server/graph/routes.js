@@ -36,7 +36,7 @@ router.get('/graph/:id', async (req, res, next) => {
         }
       }
     }
-    console.log(subGraph);
+
     res.status(200).json(subGraph);
   } catch (error) {
     console.error(error);
