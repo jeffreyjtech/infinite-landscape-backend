@@ -14,11 +14,29 @@ storyCollection.readAllInGroup = async function (group) {
 router.get('/graph/:id', async (req, res, next) => {
   try {
     let record = await storyCollection.read(req.params.id);
-    let subGraph = [];
+    // console.log(req.params.id, ' found: ', record);
+    let subGraph = [record];
+    let visited = [record.id];
+    let neighborIds = [...record.neighbors];
 
-    while (record.dataValues.neighbors.length) {
-      subGraph.push(await storyCollection.read(record.dataValues.neighbors.pop()));
+    while (neighborIds.length) {
+      let neighborId = neighborIds.pop();
+      subGraph.push(await storyCollection.read(neighborId));
+      visited.push(neighborId);
     }
+    let max = subGraph.length;
+    for (let i = 0; i < max; i++) {
+      let story = subGraph[i];
+      let neighborIds = [...story.neighbors];
+      while (neighborIds.length) {
+        let neighborId = neighborIds.pop();
+        if (!visited.includes(neighborId)) {
+          subGraph.push(await storyCollection.read(neighborId));
+          visited.push(neighborId);
+        }
+      }
+    }
+    console.log(subGraph);
     res.status(200).json(subGraph);
   } catch (error) {
     console.error(error);
