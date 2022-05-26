@@ -19,6 +19,7 @@ const graph = {
         information: 'You can hover over words like this to get more information',
         door: 'This door leads to the next room. Hover over that room in the map view to see what might be inside.',
       },
+      neighbors: [],
     },
     {
       //id: 2,
@@ -33,6 +34,7 @@ const graph = {
         decorations: 'Sometimes there will be hidden information in these descriptions',
         pattern: 'One repeated motif is a series of colors arranged in a circle, each color signifying a different region of the landscape.',
       },
+      neighbors: [],
     },
     {
       //id: 3,
@@ -47,6 +49,7 @@ const graph = {
         information: 'You can hover over words like this to get more information',
         door: 'This door leads to the next room. Hover over that room in the map view to see what might be inside.',
       },
+      neighbors: [],
     },
     {
       //id: 4,
@@ -61,6 +64,7 @@ const graph = {
         information: 'You can hover over words like this to get more information',
         door: 'This door leads to the next room. Hover over that room in the map view to see what might be inside.',
       },
+      neighbors: [],
     },
     {
       //id: 5,
@@ -74,6 +78,7 @@ const graph = {
       tooltips: {
         theoretical: 'How are you even reading this?',
       },
+      neighbors: [],
     },
   ],
   adjacencies: [
@@ -87,23 +92,20 @@ const graph = {
 describe('Graph Route Tests', () => {
   it('should add a story node to an empty graph', async () => {
     const story = await request.post('/story').send(graph.nodes[0]);
-    console.log(story.status);
-    const response = await request.post('/graph').send(graph.nodes[0]);
+    const response = await request.post('/graph').send(story.body);
 
     expect(response.status).toEqual(204);
   });
 
-  // it('should add multiple story nodes to the graph', async () => {
-  //   for (let i = 1; i < graph.nodes.length; i++) {
-  //     await request.post('/story').send(graph.nodes[i]);
-  //     await request.post('/graph').send(graph.nodes[i]);
-  //   }
-  //   const adjacencies = await request.get('/graph/1');
+  it('should add multiple story nodes to the graph', async () => {
+    for (let i = 1; i < graph.nodes.length; i++) {
+      const story = await request.post('/story').send(graph.nodes[i]);
+      await request.post('/graph').send(story.body);
+    }
+    const records = await request.get('/graph/1');
 
-  //   //console.log('testing for adj', adjacencies.body);
-
-  //   expect(true).toEqual(false);
-  // });
+    expect(true).toEqual(false);
+  });
 
   // it('should retrieve only the nodes at a depth of two or less from the current root', () => {
   //   expect(true).toEqual(false);
