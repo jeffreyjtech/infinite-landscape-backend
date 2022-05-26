@@ -23,7 +23,7 @@ const errorOnBadParam = (paramKey) => (req, res, next) => {
 
 
 module.exports = (collection, path, router) => {
-  router.use(bearerAuth);
+  //router.use(bearerAuth);
 
   router.post(`/${path}`, errorOnEmptyBody, async (req, res, next) => {
     try {
@@ -46,7 +46,7 @@ module.exports = (collection, path, router) => {
   });
 
   router.get(`/${path}/:id`, errorOnBadParam('id'), async (req, res, next) => {
-    console.log();
+
     try {
       let record = await collection.read(req.params.id);
       res.status(200).json(record);
@@ -88,6 +88,7 @@ module.exports = (collection, path, router) => {
       },
     );
   }
+
 
   return router;
 };

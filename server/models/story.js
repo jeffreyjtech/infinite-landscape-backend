@@ -2,17 +2,17 @@
 
 const { DataTypes } = require('sequelize');
 
-const genres = ['horror', 'sci-fi', 'fantasy', 'medieval', 'contemporary', 'surreal', 'goofy'];
+const genres = ['horror', 'sci-fi', 'fantasy', 'medieval', 'contemporary', 'surreal', 'goofy', 'TUTORIAL', 'VOID'];
 
 const storySchema = {
-  title: { type: DataTypes.STRING, allowNull: false },
+  label: { type: DataTypes.STRING, allowNull: false },
   username: { type: DataTypes.STRING, allowNull: false },
   penName: { type: DataTypes.STRING, allowNull: false },
-  storyId: { type: DataTypes.STRING, allowNull: false, unique: true },
   description: { type: DataTypes.STRING, allowNull: false },
-  category: { type: DataTypes.ENUM(genres), allowNull: false },
+  group: { type: DataTypes.ENUM(genres), allowNull: false },
   color: { type: DataTypes.STRING, allowNull: false },
   tooltips: { type: DataTypes.JSON },
+  neighbors: { type: DataTypes.ARRAY(DataTypes.INTEGER), allowNull: false },
 };
 
 module.exports = storySchema;
