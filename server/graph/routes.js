@@ -27,40 +27,4 @@ router.get('/graph/:id', async (req, res, next) => {
 },
 );
 
-router.post('/graph', async (req, res, next) => {
-  let response;
-
-  try {
-
-    let potentialNeighborStories = await storyCollection.readAllInGroup(req.body.group);
-
-    // if (potentialNeighborStories.dataValues.neighbors.length) {
-    for (let neighborStory of potentialNeighborStories) {
-      if (neighborStory.dataValues.id !== req.body.id) {
-        if (neighborStory.dataValues.neighbors.length < 4) {
-          neighborStory.dataValues.neighbors.push(req.body.id);
-
-          response = await storyCollection.update(neighborStory.dataValues.id, neighborStory.dataValues);
-
-          break;
-        }
-      }
-    }
-
-    res.send(204).json(response);
-
-    // } else {
-    //   console.log(req.body);
-    //   //response = await storyCollection.create({ storyId: req.body.id, neighbors: [] });
-
-    //   res.send(204).json(response);
-
-    // }
-
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
-});
-
 module.exports = router;
