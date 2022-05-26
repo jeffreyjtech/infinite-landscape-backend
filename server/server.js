@@ -1,5 +1,7 @@
 'use strict';
 
+const cors = require('cors');
+
 const express = require('express');
 const { profileCollection, storyCollection } = require('./models');
 const routify = require('./routify');
@@ -10,6 +12,8 @@ const app = express();
 
 const swaggerUi = require('swagger-ui-express');
 const  swaggerDocument =  require('./swagger.json');
+
+app.use(cors());
 
 app.use(express.json());
 app.use(authRouter);
