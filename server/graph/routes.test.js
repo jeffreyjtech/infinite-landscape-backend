@@ -81,33 +81,35 @@ const graph = {
       neighbors: [],
     },
   ],
-  adjacencies: [
-    { 10001: [10002] },
-    { 10002: [10001, 10003, 10004] },
-    { 10003: [10002] },
-    { 10004: [10003, 10005] },
-  ],
 };
 
 describe('Graph Route Tests', () => {
   it('should add a story node to an empty graph', async () => {
-    const story = await request.post('/story').send(graph.nodes[0]);
-    const response = await request.post('/graph').send(story.body);
+    const response = await request.post('/story').send(graph.nodes[0]);
 
-    expect(response.status).toEqual(204);
+    expect(response.status).toEqual(201);
   });
 
-  it('should add multiple story nodes to the graph', async () => {
+  it('should add multiple story nodes to the graph without linking a node to itself', async () => {
     for (let i = 1; i < graph.nodes.length; i++) {
-      const story = await request.post('/story').send(graph.nodes[i]);
-      await request.post('/graph').send(story.body);
+      await request.post('/story').send(graph.nodes[i]);
     }
-    const records = await request.get('/graph/1');
+    const node1 = await request.get('/graph/1');
+    const node2 = await request.get('/graph/2');
+    const node3 = await request.get('/graph/3');
+    const node4 = await request.get('/graph/4');
+    const node5 = await request.get('/graph/5');
 
-    expect(true).toEqual(false);
+    expect(node1.body[0].neighbors.includes(node1.body[0].id)).toBeFalsy();
+    expect(node2.body[0].neighbors.includes(node2.body[0].id)).toBeFalsy();
+    expect(node3.body[0].neighbors.includes(node3.body[0].id)).toBeFalsy();
+    expect(node4.body[0].neighbors.includes(node4.body[0].id)).toBeFalsy();
+    expect(node5.body[0].neighbors.includes(node5.body[0].id)).toBeFalsy();
   });
 
-  // it('should retrieve only the nodes at a depth of two or less from the current root', () => {
-  //   expect(true).toEqual(false);
-  // });
+  it('should retrieve only the nodes at a depth of two or less from the current root', async () => {
+    const graph = await request.get('/graph/1');
+
+    expect(graph.body.length).toEqual(4);
+  });
 });
