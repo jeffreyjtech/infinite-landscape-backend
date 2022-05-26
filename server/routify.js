@@ -46,7 +46,7 @@ module.exports = (collection, path, router) => {
   });
 
   router.get(`/${path}/:id`, errorOnBadParam('id'), async (req, res, next) => {
-    console.log();
+
     try {
       let record = await collection.read(req.params.id);
       res.status(200).json(record);
