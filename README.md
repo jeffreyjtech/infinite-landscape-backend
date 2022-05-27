@@ -16,20 +16,18 @@
 
 ## Tools Used
 - VSCode
--   "dependencies": {
-    "base-64": "^1.0.0",
-    "bcrypt": "^5.0.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "jest": "^28.1.0",
-    "jsonwebtoken": "^8.5.1",
-    "pg": "^8.7.3",
-    "sequelize": "^6.20.0",
-    "sequelize-cli": "^6.4.1",
-    "supertest": "^6.2.3",
-    "swagger-ui-express": "^4.4.0"
-  }
+- "base-64": "^1.0.0",
+- "bcrypt": "^5.0.1",
+-  "cors": "^2.8.5",
+-  "dotenv": "^16.0.1",
+-  "express": "^4.18.1",
+-  "jest": "^28.1.0",
+-  "jsonwebtoken": "^8.5.1",
+-  "pg": "^8.7.3",
+-  "sequelize": "^6.20.0",
+-  "sequelize-cli": "^6.4.1",
+- "supertest": "^6.2.3",
+-  "swagger-ui-express": "^4.4.0"
 ---------------------------------
 
 ## Recent Updates
