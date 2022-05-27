@@ -60,7 +60,7 @@ module.exports = (collection, path, router) => {
     `/${path}/:id`,
     errorOnBadParam('id'),
     errorOnEmptyBody,
-    perms(collection),
+    // perms(collection),
     async (req, res, next) => {
       try {
         let record = await collection.update(req.params.id, req.body);
@@ -76,7 +76,7 @@ module.exports = (collection, path, router) => {
     router.delete(
       `/${path}/:id`,
       errorOnBadParam('id'),
-      perms(collection),
+      // perms(collection),
       async (req, res, next) => {
         try {
           let record = await collection.delete(req.params.id);
