@@ -6,7 +6,7 @@ const express = require('express');
 const { profileCollection, storyCollection } = require('./models');
 const routify = require('./routify');
 const authRouter = require('./auth/routes');
-const graphRouter = require('./graph/routes');
+const graphRouter = require('./graphRouter');
 const router = express.Router();
 const app = express();
 
