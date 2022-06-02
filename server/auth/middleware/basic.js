@@ -1,12 +1,13 @@
 'use strict';
 
 const base64 = require('base-64');
+const errorWithStatus = require('../../error/errorWithStatus');
 
 const { users } = require('../models');
 
 module.exports = async (req, res, next) => {
   if (!req.headers.authorization) {
-    return _authError();
+    next(errorWithStatus('Missing authorization headers', 403));
   }
   try {
     let basic = req.headers.authorization.split(' ').pop();
@@ -15,10 +16,7 @@ module.exports = async (req, res, next) => {
     next();
   } catch (error) {
     console.error(error);
-    _authError();
-  }
-
-  function _authError() {
-    res.status(403).send('invalid Login');
+    error.status = 403;
+    next(error);
   }
 };
