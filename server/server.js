@@ -22,6 +22,10 @@ app.use(routify(storyCollection, 'story', router));
 app.use(graphRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+app.use((error, req, res, next) => {
+  res.status(error.status || 500).send(error.message || 'Unknown server error');
+});
+
 module.exports = {
   app,
   start: (PORT) => app.listen(PORT, () => console.log('App is listening on ', PORT)),
