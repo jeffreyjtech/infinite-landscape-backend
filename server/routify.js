@@ -21,11 +21,8 @@ const errorOnBadParam = (paramKey) => (req, res, next) => {
   }
 };
 
-
 module.exports = (collection, path, router) => {
-  //router.use(bearerAuth);
-
-  router.post(`/${path}`, errorOnEmptyBody, async (req, res, next) => {
+  router.post(`/${path}`, errorOnEmptyBody, bearerAuth, async (req, res, next) => {
     try {
       let record = await collection.create(req.body);
       res.status(201).json(record);
@@ -46,7 +43,6 @@ module.exports = (collection, path, router) => {
   });
 
   router.get(`/${path}/:id`, errorOnBadParam('id'), async (req, res, next) => {
-
     try {
       let record = await collection.read(req.params.id);
       res.status(200).json(record);
@@ -60,7 +56,8 @@ module.exports = (collection, path, router) => {
     `/${path}/:id`,
     errorOnBadParam('id'),
     errorOnEmptyBody,
-    // perms(collection),
+    bearerAuth,
+    perms(collection),
     async (req, res, next) => {
       try {
         let record = await collection.update(req.params.id, req.body);
@@ -76,7 +73,8 @@ module.exports = (collection, path, router) => {
     router.delete(
       `/${path}/:id`,
       errorOnBadParam('id'),
-      // perms(collection),
+      bearerAuth,
+      perms(collection),
       async (req, res, next) => {
         try {
           let record = await collection.delete(req.params.id);
@@ -88,7 +86,6 @@ module.exports = (collection, path, router) => {
       },
     );
   }
-
 
   return router;
 };
