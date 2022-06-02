@@ -1,7 +1,7 @@
 const { storyCollection } = require('.');
 
 describe('Testing story model', () => {
-  /*
+  /* Story schema
   label: { type: DataTypes.STRING, allowNull: false },
   username: { type: DataTypes.STRING, allowNull: false },
   penName: { type: DataTypes.STRING, allowNull: false },
