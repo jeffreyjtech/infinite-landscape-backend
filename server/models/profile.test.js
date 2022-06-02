@@ -14,9 +14,9 @@ describe('Testing profile model', () => {
 
   const testProfileData = {
     username: 'testProfile',
-    history: ['Potato'],
-    favorites: ['Tomato'],
-    contributions: ['Vegetables'],
+    history: [1],
+    favorites: [1],
+    contributions: [1],
   };
 
   const newProfileData = {
