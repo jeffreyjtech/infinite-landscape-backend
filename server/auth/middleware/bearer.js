@@ -1,6 +1,6 @@
 'use strict';
 
-const errorWithStatus = require('../../error/errorWithStatus');
+const errorWithStatus = require('../../error/ErrorWithStatus');
 const { users } = require('../models');
 
 module.exports = async (req, res, next) => {

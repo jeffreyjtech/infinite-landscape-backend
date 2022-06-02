@@ -3,7 +3,7 @@
 const bearerAuth = require('./auth/middleware/bearer.js');
 const perms = require('./auth/middleware/perms.js');
 
-const errorWithStatus = require('./error/errorWithStatus');
+const errorWithStatus = require('./error/ErrorWithStatus');
 
 const errorOnEmptyBody = (req, res, next) => {
   if (!req.body) {

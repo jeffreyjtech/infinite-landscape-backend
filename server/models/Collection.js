@@ -1,6 +1,6 @@
 'use strict';
 
-const errorWithStatus = require('../error/errorWithStatus');
+const errorWithStatus = require('../error/ErrorWithStatus');
 
 class Collection {
   constructor(sequelize, name, schema) {
