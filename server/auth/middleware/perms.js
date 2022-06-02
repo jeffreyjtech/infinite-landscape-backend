@@ -17,7 +17,6 @@ module.exports = (collection) => async (req, res, next) => {
     }
   } catch (error) {
     console.error(error);
-    error.status = error.status || 403;
-    next(error);
+    next(errorWithStatus('Unauthorized', 403));
   }
 };

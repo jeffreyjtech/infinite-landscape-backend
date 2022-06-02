@@ -15,7 +15,6 @@ module.exports = async (req, res, next) => {
     next();
   } catch (error) {
     console.error(error);
-    error.status = error.status || 403;
-    next(error);
+    next(errorWithStatus('Unauthorized', 403));
   }
 };
