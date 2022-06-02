@@ -13,11 +13,11 @@ module.exports = (collection) => async (req, res, next) => {
     if (req.user.username === foundContent.username || req.user.role === 'admin') {
       next();
     } else {
-      next(errorWithStatus('You cannot modify another user\'s content', 403));
+      throw errorWithStatus('You cannot modify another user\'s content', 403);
     }
   } catch (error) {
     console.error(error);
-    error.status = 403;
+    error.status = error.status || 403;
     next(error);
   }
 };
