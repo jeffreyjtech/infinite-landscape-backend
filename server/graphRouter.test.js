@@ -4,6 +4,16 @@ const { app } = require('./server');
 const supertest = require('supertest');
 const request = supertest(app);
 
+const bearerAuth = require('./auth/middleware/bearer.js'); // eslint-disable-line no-unused-vars
+const perms = require('./auth/middleware/perms.js'); // eslint-disable-line no-unused-vars
+
+jest.mock('./auth/middleware/bearer.js', () => (req, res, next) => {
+  next();
+});
+jest.mock('./auth/middleware/perms.js', () => (collection) => (req, res, next) => {
+  next();
+});
+
 const graph = require('../test-configs/testGraphData');
 
 describe('Graph Route Tests', () => {
