@@ -42,8 +42,13 @@ const next = jest.fn();
 describe('Testing the router constructor', () => {
   routify(testCollection, 'test', router);
 
-  const getCall = router.get.mock.calls[0];
-  const getIdCall = router.get.mock.calls[1];
+  // The .mock.calls array contains all the info about how a mock function has been invoked
+  // Middleware is added by invoking router.get/.post/.put,etc with a middleware function we've written
+  // Thus, it's possible to test our middleware by pulling the middleware function out of the calls array
+  // We invoke it in the test sequence and expect side-effects such as next being called. 
+
+  const getCall = router.get.mock.calls[0]; // Assign each call to a variable (for clarity)
+  const getIdCall = router.get.mock.calls[1]; 
   const postCall = router.post.mock.calls[0];
   const putCall = router.put.mock.calls[0];
   const deleteCall = router.delete.mock.calls[0];
@@ -51,9 +56,10 @@ describe('Testing the router constructor', () => {
   let middlewareIndex = 0;
 
   it('Has a GET route', async () => {
-    middlewareIndex = getCall.length - 1;
-    middleware = getCall[middlewareIndex];
-    await middleware(req, res, next);
+    middlewareIndex = getCall.length - 1; // Find our middleware by finding the last item in the list of arguments
+    middleware = getCall[middlewareIndex]; // Assign the middleware to a variable (for clarity)
+    await middleware(req, res, next); // Invoke the middleware
+    // Expect various side effects to occur with our mocked collection methods and mocked express objects/methods
     expect(testCollection.readAll).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalled();
