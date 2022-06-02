@@ -3,6 +3,13 @@
 const bearerAuth = require('./auth/middleware/bearer.js'); // eslint-disable-line no-unused-vars
 const perms = require('./auth/middleware/perms.js'); // eslint-disable-line no-unused-vars
 
+jest.mock('./auth/middleware/bearer.js', () => (req, res, next) => {
+  next();
+});
+jest.mock('./auth/middleware/perms.js', () => (collection) => (req, res, next) => {
+  next();
+});
+
 const routify = require('./routify');
 
 const router = {
@@ -32,12 +39,6 @@ const res = {
 };
 const next = jest.fn();
 
-jest.mock('./auth/middleware/bearer.js', () => (req, res, next) => {
-  next();
-});
-jest.mock('./auth/middleware/perms.js', () => (collection) => (req, res, next) => {
-  next();
-});
 
 describe('Testing the router constructor', () => {
   routify(testCollection, 'test', router);
@@ -81,7 +82,7 @@ describe('Testing the router constructor', () => {
     middlewareIndex = putCall.length - 1;
     middleware = putCall[middlewareIndex];
     await middleware(req, res, next);
-    expect(testCollection.update).toHaveBeenCalledWith(req.params.id, req.body);
+    expect(testCollection.update).toHaveBeenCalledWith(req.body, req.params.id);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalled();
   });

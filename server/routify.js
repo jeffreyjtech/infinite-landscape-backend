@@ -60,7 +60,7 @@ module.exports = (collection, path, router) => {
     perms(collection),
     async (req, res, next) => {
       try {
-        let record = await collection.update(req.params.id, req.body);
+        let record = await collection.update(req.body, req.params.id);
         res.status(200).json(record);
       } catch (e) {
         console.error(e);
