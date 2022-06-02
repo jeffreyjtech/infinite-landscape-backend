@@ -57,7 +57,7 @@ describe('Testing profile model', () => {
   });
 
   it('Updates a record', async () => {
-    await profileCollection.update(id, newProfileData);
+    await profileCollection.update(newProfileData, id);
 
     const updatedProfile = await profileCollection.read(id);
 
