@@ -43,7 +43,6 @@ describe('Graph Route Tests', () => {
   it('should retrieve only the nodes at a depth of two or less from the current root', async () => {
 
     const graph = await request.get('/graph/1');
-    console.log(graph.body.length);
     expect(graph.body.length).toBeLessThan(18);
   });
 });
