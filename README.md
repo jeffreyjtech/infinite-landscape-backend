@@ -13,6 +13,22 @@ Infinite Landscape graphical tool for creative-writing and world-building.
 * Embedded points of interest tooltips give personality and detail to each location.
 * The short-form narratives are easy-to-create and easy-to-use for inspiration & entertainment.
 
+## Tools and Dependencies
+
+- VSCode
+- "base-64": "^1.0.0",
+- "bcrypt": "^5.0.1",
+-  "cors": "^2.8.5",
+-  "dotenv": "^16.0.1",
+-  "express": "^4.18.1",
+-  "jest": "^28.1.0",
+-  "jsonwebtoken": "^8.5.1",
+-  "pg": "^8.7.3",
+-  "sequelize": "^6.20.0",
+-  "sequelize-cli": "^6.4.1",
+- "supertest": "^6.2.3",
+-  "swagger-ui-express": "^4.4.0"
+
 ## Authors
 
 * Tanner Percival
