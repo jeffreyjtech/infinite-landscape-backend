@@ -1,10 +1,4 @@
-'use strict';
-
-const { app } = require('../server');
-const supertest = require('supertest');
-const request = supertest(app);
-
-const graph = {
+module.exports = {
   nodes: [
     {
       //id: 1,
@@ -12,7 +6,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'blue',
       tooltips: {
@@ -27,12 +22,14 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'An elaborately decorated room.',
-      description: 'This room is festooned with gaudy decorations. Nearly every surface is covered with some kind of intricate pattern.',
+      description:
+        'This room is festooned with gaudy decorations. Nearly every surface is covered with some kind of intricate pattern.',
       group: 'tutorial',
       color: 'blue',
       tooltips: {
         decorations: 'Sometimes there will be hidden information in these descriptions',
-        pattern: 'One repeated motif is a series of colors arranged in a circle, each color signifying a different region of the landscape.',
+        pattern:
+          'One repeated motif is a series of colors arranged in a circle, each color signifying a different region of the landscape.',
       },
       neighbors: [],
     },
@@ -42,7 +39,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'contemporary',
       color: 'green',
       tooltips: {
@@ -57,7 +55,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'medieval',
       color: 'purple',
       tooltips: {
@@ -71,7 +70,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -86,7 +85,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'fantasy',
       color: 'purple',
       tooltips: {
@@ -100,7 +100,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -115,7 +115,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'fantasy',
       color: 'purple',
       tooltips: {
@@ -129,7 +130,7 @@ const graph = {
       label: 'A fantasy room',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'fantasy',
       color: 'black',
@@ -144,7 +145,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -158,7 +160,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -173,7 +175,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -187,7 +190,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -202,7 +205,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -216,7 +220,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -231,7 +235,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -245,7 +250,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -260,7 +265,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -274,7 +280,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'medieval',
       color: 'black',
@@ -289,7 +295,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -303,7 +310,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -318,7 +325,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -332,7 +340,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -347,7 +355,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -361,7 +370,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -376,7 +385,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -390,7 +400,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -405,7 +415,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -419,7 +430,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -434,7 +445,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -448,7 +460,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -463,7 +475,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -477,7 +490,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -492,7 +505,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -506,7 +520,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -521,7 +535,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -535,7 +550,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -550,7 +565,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -564,7 +580,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -579,7 +595,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -593,7 +610,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -608,7 +625,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -622,7 +640,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -637,7 +655,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'blue',
       tooltips: {
@@ -652,12 +671,14 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'An elaborately decorated room.',
-      description: 'This room is festooned with gaudy decorations. Nearly every surface is covered with some kind of intricate pattern.',
+      description:
+        'This room is festooned with gaudy decorations. Nearly every surface is covered with some kind of intricate pattern.',
       group: 'tutorial',
       color: 'blue',
       tooltips: {
         decorations: 'Sometimes there will be hidden information in these descriptions',
-        pattern: 'One repeated motif is a series of colors arranged in a circle, each color signifying a different region of the landscape.',
+        pattern:
+          'One repeated motif is a series of colors arranged in a circle, each color signifying a different region of the landscape.',
       },
       neighbors: [],
     },
@@ -667,7 +688,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'contemporary',
       color: 'green',
       tooltips: {
@@ -682,7 +704,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'medieval',
       color: 'purple',
       tooltips: {
@@ -696,7 +719,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -711,7 +734,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'fantasy',
       color: 'purple',
       tooltips: {
@@ -725,7 +749,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -740,7 +764,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'fantasy',
       color: 'purple',
       tooltips: {
@@ -754,7 +779,7 @@ const graph = {
       label: 'A fantasy room',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'fantasy',
       color: 'black',
@@ -769,7 +794,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -783,7 +809,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -798,7 +824,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -812,7 +839,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -827,7 +854,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -841,7 +869,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -856,7 +884,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -870,7 +899,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -885,7 +914,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -899,7 +929,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'medieval',
       color: 'black',
@@ -914,7 +944,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -928,7 +959,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -943,7 +974,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -957,7 +989,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -972,7 +1004,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'sci-fi',
       color: 'purple',
       tooltips: {
@@ -986,7 +1019,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'void',
       color: 'black',
@@ -1001,7 +1034,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -1015,7 +1049,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -1030,7 +1064,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -1044,7 +1079,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -1059,7 +1094,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -1073,7 +1109,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -1088,7 +1124,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -1102,7 +1139,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -1117,7 +1154,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -1131,7 +1169,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -1146,7 +1184,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -1160,7 +1199,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -1175,7 +1214,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -1189,7 +1229,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -1204,7 +1244,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -1218,7 +1259,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -1233,7 +1274,8 @@ const graph = {
       username: 'micha',
       penName: 'Michanations',
       summary: 'A simple room with information placards on one wall.',
-      description: 'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
+      description:
+        'This room is completely unadorned, save for a gigantic series of information diagrams on the east wall. There is a single door leading out of the room.',
       group: 'tutorial',
       color: 'purple',
       tooltips: {
@@ -1247,7 +1289,7 @@ const graph = {
       label: 'A room too far',
       username: 'micha',
       penName: 'Michanations',
-      summary: 'This room shouldn\'t be visible from the first room',
+      summary: 'This room should not be visible from the first room',
       description: 'This room is only theoretical.',
       group: 'horror',
       color: 'black',
@@ -1258,35 +1300,3 @@ const graph = {
     },
   ],
 };
-
-describe('Graph Route Tests', () => {
-  it('should add a story node to an empty graph', async () => {
-    const response = await request.post('/story').send(graph.nodes[0]);
-
-    expect(response.status).toEqual(201);
-  });
-
-  it('should add multiple story nodes to the graph without linking a node to itself', async () => {
-    for (let i = 1; i < graph.nodes.length; i++) {
-      await request.post('/story').send(graph.nodes[i]);
-    }
-    const node1 = await request.get('/graph/1');
-    const node2 = await request.get('/graph/2');
-    const node3 = await request.get('/graph/3');
-    const node4 = await request.get('/graph/4');
-    const node5 = await request.get('/graph/5');
-
-    expect(node1.body[0].neighbors.includes(node1.body[0].id)).toBeFalsy();
-    expect(node2.body[0].neighbors.includes(node2.body[0].id)).toBeFalsy();
-    expect(node3.body[0].neighbors.includes(node3.body[0].id)).toBeFalsy();
-    expect(node4.body[0].neighbors.includes(node4.body[0].id)).toBeFalsy();
-    expect(node5.body[0].neighbors.includes(node5.body[0].id)).toBeFalsy();
-  });
-
-  it('should retrieve only the nodes at a depth of two or less from the current root', async () => {
-
-    const graph = await request.get('/graph/1');
-    console.log(graph.body.length);
-    expect(graph.body.length).toBeLessThan(18);
-  });
-});

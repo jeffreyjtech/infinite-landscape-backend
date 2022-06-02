@@ -5,7 +5,7 @@ const supertest = require('supertest');
 const request = supertest(app);
 const base64 = require('base-64');
 
-describe('Auth Route Testing', () => {
+describe('Signin and Signup route testing', () => {
   let testUsername = 'user';
   let testpassword = 'password';
   
