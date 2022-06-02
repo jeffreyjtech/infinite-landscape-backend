@@ -36,7 +36,6 @@ router.get('/graph/:id', async (req, res, next) => {
     console.error(error);
     next(error);
   }
-},
-);
+});
 
 module.exports = router;
