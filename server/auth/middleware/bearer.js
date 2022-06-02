@@ -6,7 +6,7 @@ const { users } = require('../models');
 module.exports = async (req, res, next) => {
   try {
     if (!req.headers.authorization) {
-      throw errorWithStatus('Missing authorization headers', 403);
+      return next(errorWithStatus('Missing authorization headers', 403));
     }
     const token = req.headers.authorization.split(' ').pop();
     const validUser = await users.authenticateToken(token);
