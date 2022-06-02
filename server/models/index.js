@@ -20,33 +20,33 @@ const storyCollection = new Collection(sequelize, 'stories', storySchema);
 
 storyCollection.create = async function (json) {
   let potentialNeighborStories = await this.readAllWhere('group', json.group);
-  let newStory = await this.model.create(json);
-
   if (potentialNeighborStories.length === 0) {
-    //console.log('no neighbors for ', newStory.id);
+    console.log('no neighbors for new story');
     potentialNeighborStories = await this.readAll();
     if (potentialNeighborStories.length === 0) {
-      //console.log('graph is empty. returning detached node ', newStory.id);
-      return newStory;
+      console.log('graph is empty. returning detached node');
+      let detachedStory = await this.model.create(json);
+      return detachedStory;
     }
   }
 
+  let newStory = await this.model.create(json);
+
+  // console.log('potentialNeighborStories is', potentialNeighborStories);
   for (let neighborStory of potentialNeighborStories) {
-    //console.log('inspecting story: ', neighborStory.id);
-    if (neighborStory.dataValues.id !== newStory.id) {
-      //console.log('story', neighborStory.id, 'is not ', newStory.id, '. Inspecting neighbors: ', neighborStory.neighbors);
-      if (neighborStory.dataValues.neighbors.length < 4) {
-        let updatedStory = await this.update(
-          { neighbors: [neighborStory.dataValues.id] },
-          newStory.id,
-        );
-        /*let updatedNeighbor = */ await this.update(
-          { neighbors: [...neighborStory.dataValues.neighbors, newStory.id] },
-          neighborStory.dataValues.id,
-        );
-        // console.log('outcome: new story ', newStory.id, 'has ', updatedStory.neighbors, 'and neighbor ', neighborStory.id, 'has ', updatedNeighbor.neighbors);
-        return updatedStory;
-      }
+    // console.log('inspecting story: ', neighborStory.id);
+    // console.log('story', neighborStory.id, 'is not ', newStory.id, '. Inspecting neighbors: ', neighborStory.neighbors);
+    if (neighborStory.dataValues.neighbors.length < 4) {
+      let updatedStory = await this.update(
+        { neighbors: [neighborStory.dataValues.id] },
+        newStory.id,
+      );
+      /* let updatedNeighbor  =*/ await this.update(
+        { neighbors: [...neighborStory.dataValues.neighbors, newStory.id] },
+        neighborStory.dataValues.id,
+      );
+      // console.log('outcome: new story ', newStory.id, 'has ', updatedStory.neighbors, 'and neighbor ', neighborStory.id, 'has ', updatedNeighbor.neighbors);
+      return updatedStory;
     }
   }
 };
