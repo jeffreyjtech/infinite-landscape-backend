@@ -6,7 +6,7 @@ module.exports = (collection) => async (req, res, next) => {
   try {
     const foundContent = await collection.read(req.params.id);
 
-    if (!foundContent) next(errorWithStatus('Resource not found', 404));
+    if (!foundContent) return next(errorWithStatus('Resource not found', 404));
 
     // req.user has all the user info from bearerAuth middleware
     // Including the user's verified role and username
