@@ -1,5 +1,11 @@
 'use strict';
 
+const bearerAuth = require('./auth/middleware/bearer.js'); // eslint-disable-line no-unused-vars
+const perms = require('./auth/middleware/perms.js'); // eslint-disable-line no-unused-vars
+
+jest.mock('./auth/middleware/bearer.js', () => async (req, res, next) => next());
+jest.mock('./auth/middleware/perms.js', () => async (req, res, next) => next());
+
 const routify = require('./routify');
 
 const router = {
