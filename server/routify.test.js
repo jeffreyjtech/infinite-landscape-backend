@@ -3,9 +3,6 @@
 const bearerAuth = require('./auth/middleware/bearer.js'); // eslint-disable-line no-unused-vars
 const perms = require('./auth/middleware/perms.js'); // eslint-disable-line no-unused-vars
 
-jest.mock('./auth/middleware/bearer.js', () => async (req, res, next) => next());
-jest.mock('./auth/middleware/perms.js', () => async (req, res, next) => next());
-
 const routify = require('./routify');
 
 const router = {
@@ -35,44 +32,63 @@ const res = {
 };
 const next = jest.fn();
 
+jest.mock('./auth/middleware/bearer.js', () => (req, res, next) => {
+  next();
+});
+jest.mock('./auth/middleware/perms.js', () => (collection) => (req, res, next) => {
+  next();
+});
+
 describe('Testing the router constructor', () => {
   routify(testCollection, 'test', router);
 
+  const getCall = router.get.mock.calls[0];
+  const getIdCall = router.get.mock.calls[1];
+  const postCall = router.post.mock.calls[0];
+  const putCall = router.put.mock.calls[0];
+  const deleteCall = router.delete.mock.calls[0];
+  let middleware = {};
+  let middlewareIndex = 0;
+
   it('Has a GET route', async () => {
-    const calls = router.get.mock.calls;
-    const middleware = calls[0][1];
+    middlewareIndex = getCall.length - 1;
+    middleware = getCall[middlewareIndex];
     await middleware(req, res, next);
     expect(testCollection.readAll).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalled();
   });
-  it('Has a POST route', async () => {
-    const calls = router.post.mock.calls;
-    const middleware = calls[0][2];
-    await middleware(req, res, next);
-    expect(testCollection.create).toBeCalledWith(req.body);
-    expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalled();
-  });
+
   it('Has a GET with id route', async () => {
-    const calls = router.get.mock.calls;
-    const middleware = calls[1][2];
+    middlewareIndex = getIdCall.length - 1;
+    middleware = getIdCall[middlewareIndex];
     await middleware(req, res, next);
     expect(testCollection.read).toHaveBeenCalledWith(req.params.id);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalled();
   });
+
+  it('Has a POST route', async () => {
+    middlewareIndex = postCall.length - 1;
+    middleware = postCall[middlewareIndex];
+    await middleware(req, res, next);
+    expect(testCollection.create).toBeCalledWith(req.body);
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalled();
+  });
+
   it('Has a PUT route', async () => {
-    const calls = router.put.mock.calls;
-    const middleware = calls[0][4];
+    middlewareIndex = putCall.length - 1;
+    middleware = putCall[middlewareIndex];
     await middleware(req, res, next);
     expect(testCollection.update).toHaveBeenCalledWith(req.params.id, req.body);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalled();
   });
+
   it('Has a DELETE route', async () => {
-    const calls = router.delete.mock.calls;
-    const middleware = calls[0][3];
+    middlewareIndex = deleteCall.length - 1;
+    middleware = deleteCall[middlewareIndex];
     await middleware(req, res, next);
     expect(testCollection.delete).toHaveBeenCalledWith(req.params.id);
     expect(res.status).toHaveBeenCalledWith(200);
@@ -80,6 +96,7 @@ describe('Testing the router constructor', () => {
   });
 
   routify(testCollection, 'profile', router);
+
   it('Does not have a DELETE route for profile path', () => {
     expect(router.delete).toHaveBeenCalledTimes(1);
   });
