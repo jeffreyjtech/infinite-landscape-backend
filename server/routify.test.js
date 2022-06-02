@@ -39,7 +39,6 @@ const res = {
 };
 const next = jest.fn();
 
-
 describe('Testing the router constructor', () => {
   routify(testCollection, 'test', router);
 
