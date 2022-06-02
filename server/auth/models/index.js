@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 const userModel = require('./users');
 
-const { DATABASE_URL, NODE_ENV } = process.env;
+const { DATABASE_URL, NODE_ENV, SEQUELIZE_LOGGING } = process.env;
 
 // This will assign the Heroku-specific configs if the database is deployed.
 const config =
@@ -12,7 +12,7 @@ const config =
     ? { dialectOptions: { ssl: { require: true, rejectUnauthorized: false } } }
     : 
     {
-      /*logging: false*/
+      logging: SEQUELIZE_LOGGING === 'true',
     };
 
 const dbUrl = DATABASE_URL || 'postgresql://localhost:5432';

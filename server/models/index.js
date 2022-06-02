@@ -4,14 +4,14 @@ const Collection = require('./Collection');
 const profileSchema = require('./profile');
 const storySchema = require('./story');
 
-const { DATABASE_URL, NODE_ENV } = process.env;
+const { DATABASE_URL, NODE_ENV, SEQUELIZE_LOGGING } = process.env;
 
 const dbUrl = DATABASE_URL || 'postgresql://localhost:5432';
 
 const config =
   NODE_ENV !== 'test' && DATABASE_URL
     ? { dialectOptions: { ssl: { require: true, rejectUnauthorized: false } } }
-    : { /*logging: false*/ };
+    : { logging: SEQUELIZE_LOGGING === 'true' };
 
 const sequelize = new Sequelize(dbUrl, config);
 
@@ -36,8 +36,14 @@ storyCollection.create = async function (json) {
     if (neighborStory.dataValues.id !== newStory.id) {
       //console.log('story', neighborStory.id, 'is not ', newStory.id, '. Inspecting neighbors: ', neighborStory.neighbors);
       if (neighborStory.dataValues.neighbors.length < 4) {
-        let updatedStory = await this.update({ neighbors: [neighborStory.dataValues.id] }, newStory.id);
-        /*let updatedNeighbor = */await this.update({ neighbors: [...neighborStory.dataValues.neighbors, newStory.id] }, neighborStory.dataValues.id);
+        let updatedStory = await this.update(
+          { neighbors: [neighborStory.dataValues.id] },
+          newStory.id,
+        );
+        /*let updatedNeighbor = */ await this.update(
+          { neighbors: [...neighborStory.dataValues.neighbors, newStory.id] },
+          neighborStory.dataValues.id,
+        );
         // console.log('outcome: new story ', newStory.id, 'has ', updatedStory.neighbors, 'and neighbor ', neighborStory.id, 'has ', updatedNeighbor.neighbors);
         return updatedStory;
       }
