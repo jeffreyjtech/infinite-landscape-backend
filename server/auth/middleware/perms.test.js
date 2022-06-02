@@ -47,7 +47,7 @@ describe('Testing perms middleware', () => {
     expect(next).not.toHaveBeenLastCalledWith(expect.anything());
   });
 
-  it('should call next with an error if requestor is NOT author', async () => {
+  it('should call next with a status 403 error if requestor is NOT author', async () => {
     const req = {
       params: { id: 1 },
       user: user2,
@@ -70,7 +70,7 @@ describe('Testing perms middleware', () => {
     expect(next).not.toHaveBeenLastCalledWith(expect.anything());
   });
 
-  it('should call next with an error if the record query returns undefined', async () => {
+  it('should call next with a status 404 error if the record query returns undefined', async () => {
     const req = {
       params: { id: 2 },
       user: admin,
