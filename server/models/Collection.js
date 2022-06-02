@@ -21,16 +21,16 @@ class Collection {
   }
 
   async readAll() {
-    const instances = this.model.findAll();
+    const instances = await this.model.findAll();
     return instances;
   }
 
   async readAllWhere(column, value) {
-    const instances = this.model.findAll({ where: { [column]: value } });
+    const instances = await this.model.findAll({ where: { [column]: value } });
     return instances;
   }
 
-  // update method, takes in an id, returns the update instance
+  // update method, takes in an json object and an id, returns the update instance
   async update(json, id) {
     await this.model.update(json, { where: { id } });
     const instance = await this.read(id);
