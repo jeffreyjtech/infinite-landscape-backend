@@ -4,14 +4,14 @@ const Collection = require('./Collection');
 const profileSchema = require('./profile');
 const storySchema = require('./story');
 
-const { DATABASE_URL, NODE_ENV, SEQUELIZE_LOGGING } = process.env;
+const { DATABASE_URL, NODE_ENV, TEST_SEQUELIZE_LOGGING } = process.env;
 
 const dbUrl = DATABASE_URL || 'postgresql://localhost:5432';
 
 const config =
   NODE_ENV !== 'test' && DATABASE_URL
     ? { dialectOptions: { ssl: { require: true, rejectUnauthorized: false } } }
-    : { logging: SEQUELIZE_LOGGING === 'true' };
+    : { logging: TEST_SEQUELIZE_LOGGING === 'true' };
 
 const sequelize = new Sequelize(dbUrl, config);
 
