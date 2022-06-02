@@ -1,15 +1,19 @@
 const { storyCollection } = require('.');
 
 describe('Testing story model', () => {
-  /*
-  label: { type: DataTypes.STRING, allowNull: false },
-  username: { type: DataTypes.STRING, allowNull: false },
-  penName: { type: DataTypes.STRING, allowNull: false },
-  _id: { type: DataTypes.STRING, allowNull: false, unique: true },
-  description: { type: DataTypes.STRING, allowNull: false },
-  group: { type: DataTypes.ENUM(genres), allowNull: false },
-  color: { type: DataTypes.STRING, allowNull: false },
-  tooltips: { type: DataTypes.JSON },
+  /* Story schema
+    label: { type: DataTypes.STRING, allowNull: false },
+    username: { type: DataTypes.STRING, allowNull: false },
+    penName: { type: DataTypes.STRING, allowNull: false },
+    description: { type: DataTypes.STRING, allowNull: false },
+    group: { type: DataTypes.ENUM(genres), allowNull: false },
+    color: { type: DataTypes.STRING, allowNull: false },
+    tooltips: { type: DataTypes.JSON },
+    neighbors: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      allowNull: false,
+      defaultValue: [],
+    }
   */
 
   const testStoryData = {
@@ -20,9 +24,10 @@ describe('Testing story model', () => {
     group: 'horror',
     color: 'ffffff',
     tooltips: JSON.stringify([{ desk: 'its brown' }]),
+    neighbors: [],
   };
 
-  const newStoryData = {
+  const putStoryData = {
     username: 'newName',
   };
 
@@ -57,15 +62,15 @@ describe('Testing story model', () => {
   it('Reads all records', async () => {
     const storyRecords = await storyCollection.readAll();
     expect(storyRecords).toBeInstanceOf(Array);
-    expect(storyRecords.length).toBe(1);
+    expect(storyRecords.length).toBeGreaterThanOrEqual(1);
   });
 
   it('Updates a record', async () => {
-    await storyCollection.update(id, newStoryData);
+    await storyCollection.update(putStoryData, id);
 
     const updatedStory = await storyCollection.read(id);
 
-    expect(updatedStory.username).toBe(newStoryData.username);
+    expect(updatedStory.username).toBe(putStoryData.username);
   });
 
   it('Deletes a record', async () => {

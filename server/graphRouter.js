@@ -3,13 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { storyCollection } = require('../models');
-
-storyCollection.readAllInGroup = async function (group) {
-  const instances = await this.model.findAll({ where: { group: group } });
-
-  return instances;
-};
+const { storyCollection } = require('./models');
 
 router.get('/graph/:id', async (req, res, next) => {
   try {
@@ -42,7 +36,6 @@ router.get('/graph/:id', async (req, res, next) => {
     console.error(error);
     next(error);
   }
-},
-);
+});
 
 module.exports = router;

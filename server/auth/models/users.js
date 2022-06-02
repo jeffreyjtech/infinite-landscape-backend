@@ -9,7 +9,11 @@ const userModel = (sequelize, DataTypes) => {
   const model = sequelize.define('users', {
     username: { type: DataTypes.STRING, allowNull: false },
     password: { type: DataTypes.STRING, allowNull: false },
-    role: { type: DataTypes.ENUM('user', 'admin'), allowNull: false, defaultValue: 'user' },
+    role: {
+      type: DataTypes.ENUM('user', 'admin'),
+      allowNull: false,
+      defaultValue: 'user',
+    },
     token: {
       type: DataTypes.VIRTUAL,
       get() {
@@ -25,19 +29,22 @@ const userModel = (sequelize, DataTypes) => {
   model.authenticateBasic = async function (username, password) {
     const user = await this.findOne({ where: { username } });
     const valid = await bcrypt.compare(password, user.password);
-    if (valid) { return user; }
+    if (valid) {
+      return user;
+    }
     throw new Error('Invalid User');
   };
 
   model.authenticateToken = async function (token) {
     const parsedToken = jwt.verify(token, SECRET);
     const user = await this.findOne({ where: { username: parsedToken.username } });
-    if (user) { return user; }
+    if (user) {
+      return user;
+    }
     throw new Error('User Not Found');
   };
 
   return model;
-
 };
 
 module.exports = userModel;
