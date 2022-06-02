@@ -14,35 +14,38 @@ jest.mock('./auth/middleware/perms.js', () => (collection) => (req, res, next) =
   next();
 });
 
-const graph = require('../test-configs/testGraphData');
+const graphSeeds = require('../test-configs/testGraphData');
 
 describe('Graph Route Tests', () => {
+  let nodeGraphs = [];
+
   it('should add a story node to an empty graph', async () => {
-    const response = await request.post('/story').send(graph.nodes[0]);
+    const response = await request.post('/story').send(graphSeeds.nodes[0]);
 
     expect(response.status).toEqual(201);
   });
 
   it('should add multiple story nodes to the graph without linking a node to itself', async () => {
-    for (let i = 1; i < graph.nodes.length; i++) {
-      await request.post('/story').send(graph.nodes[i]);
+    
+    for (let i = 0; i < graphSeeds.nodes.length; i++) {
+      const storyResponse = await request.post('/story').send(graphSeeds.nodes[i]); // Returns a node aka a story 
+      const graphResponse = await request.get(`/graph/${storyResponse.body.id}`); // Returns a graph, which is an array of nodes
+      nodeGraphs[i] = graphResponse.body;
     }
-    const node1 = await request.get('/graph/1');
-    const node2 = await request.get('/graph/2');
-    const node3 = await request.get('/graph/3');
-    const node4 = await request.get('/graph/4');
-    const node5 = await request.get('/graph/5');
 
-    expect(node1.body[0].neighbors.includes(node1.body[0].id)).toBeFalsy();
-    expect(node2.body[0].neighbors.includes(node2.body[0].id)).toBeFalsy();
-    expect(node3.body[0].neighbors.includes(node3.body[0].id)).toBeFalsy();
-    expect(node4.body[0].neighbors.includes(node4.body[0].id)).toBeFalsy();
-    expect(node5.body[0].neighbors.includes(node5.body[0].id)).toBeFalsy();
+    expect(nodeGraphs[0][0].neighbors.includes(nodeGraphs[0][0].id)).toBeFalsy();
+    expect(nodeGraphs[1][0].neighbors.includes(nodeGraphs[1][0].id)).toBeFalsy();
+    expect(nodeGraphs[2][0].neighbors.includes(nodeGraphs[2][0].id)).toBeFalsy();
+    expect(nodeGraphs[3][0].neighbors.includes(nodeGraphs[3][0].id)).toBeFalsy();
+    expect(nodeGraphs[4][0].neighbors.includes(nodeGraphs[4][0].id)).toBeFalsy();
   });
 
   it('should retrieve only the nodes at a depth of two or less from the current root', async () => {
 
-    const graph = await request.get('/graph/1');
-    expect(graph.body.length).toBeLessThan(18);
+    expect(nodeGraphs[0].length).toBeLessThan(18);
+    expect(nodeGraphs[1].length).toBeLessThan(18);
+    expect(nodeGraphs[2].length).toBeLessThan(18);
+    expect(nodeGraphs[3].length).toBeLessThan(18);
+    expect(nodeGraphs[4].length).toBeLessThan(18);
   });
 });
