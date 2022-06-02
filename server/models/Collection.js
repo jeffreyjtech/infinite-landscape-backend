@@ -14,7 +14,7 @@ class Collection {
 
   async read(id) {
     const instance = await this.model.findOne({ where: { id } });
-    if (instance === null){
+    if (instance === null) {
       throw errorWithStatus(`Resource with id ${id} not found`, 404);
     }
     return instance;
@@ -25,8 +25,13 @@ class Collection {
     return instances;
   }
 
+  async readAllWhere(column, value) {
+    const instances = this.model.findAll({ where: { [column]: value } });
+    return instances;
+  }
+
   // update method, takes in an id, returns the update instance
-  async update(id, json) {
+  async update(json, id) {
     await this.model.update(json, { where: { id } });
     const instance = await this.read(id);
     return instance;
