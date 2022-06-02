@@ -13,7 +13,7 @@ Infinite Landscape graphical tool for creative-writing and world-building.
 * Embedded points of interest tooltips give personality and detail to each location.
 * The short-form narratives are easy-to-create and easy-to-use for inspiration & entertainment.
 
-## Tools and Dependencies
+## Tools and Dependencies (back-end)
 
 * VSCode
 * base-64: 1.0.0
