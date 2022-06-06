@@ -2,7 +2,7 @@
 
 # ***Infinite Landscape***
 
-## This API is deployed on [Heroku](https://infinite-landscape-backend.herokuapp.com/)!
+***This API is deployed on [Heroku](https://infinite-landscape-backend.herokuapp.com/)!***
 
 ## What is Infinite Landscape?
 
