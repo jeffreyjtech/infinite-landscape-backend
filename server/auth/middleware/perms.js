@@ -1,23 +1,22 @@
 'use strict';
 
+const errorWithStatus = require('../../error/ErrorWithStatus');
+
 module.exports = (collection) => async (req, res, next) => {
   try {
-    const foundMessage = await collection.read(req.params.id);
+    const foundContent = await collection.read(req.params.id);
 
-    if (!foundMessage) throw new Error('Message not found');
+    if (!foundContent) return next(errorWithStatus('Resource not found', 404));
 
     // req.user has all the user info from bearerAuth middleware
     // Including the user's verified role and username
-    if (req.user.username === foundMessage.username || req.user.role === 'admin') {
+    if (req.user.username === foundContent.username || req.user.role === 'admin') {
       next();
     } else {
-      // throw an error 
-      let error = new Error('You cannot modify another user\'s content');
-      error.status = 403;
-      next(error);
+      throw new Error();
     }
   } catch (error) {
     console.error(error);
-    next(error);
+    next(errorWithStatus('Unauthorized', 403));
   }
 };

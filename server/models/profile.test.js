@@ -14,9 +14,9 @@ describe('Testing profile model', () => {
 
   const testProfileData = {
     username: 'testProfile',
-    history: ['Potato'],
-    favorites: ['Tomato'],
-    contributions: ['Vegetables'],
+    history: [1],
+    favorites: [1],
+    contributions: [1],
   };
 
   const newProfileData = {
@@ -57,7 +57,7 @@ describe('Testing profile model', () => {
   });
 
   it('Updates a record', async () => {
-    await profileCollection.update(id, newProfileData);
+    await profileCollection.update(newProfileData, id);
 
     const updatedProfile = await profileCollection.read(id);
 

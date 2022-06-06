@@ -1,6 +1,6 @@
 'use strict';
 
-const errorWithStatus = require('../error/errorWithStatus');
+const errorWithStatus = require('../error/ErrorWithStatus');
 
 class Collection {
   constructor(sequelize, name, schema) {
@@ -14,19 +14,24 @@ class Collection {
 
   async read(id) {
     const instance = await this.model.findOne({ where: { id } });
-    if (instance === null){
+    if (instance === null) {
       throw errorWithStatus(`Resource with id ${id} not found`, 404);
     }
     return instance;
   }
 
   async readAll() {
-    const instances = this.model.findAll();
+    const instances = await this.model.findAll();
     return instances;
   }
 
-  // update method, takes in an id, returns the update instance
-  async update(id, json) {
+  async readAllWhere(column, value) {
+    const instances = await this.model.findAll({ where: { [column]: value } });
+    return instances;
+  }
+
+  // update method, takes in an json object and an id, returns the update instance
+  async update(json, id) {
     await this.model.update(json, { where: { id } });
     const instance = await this.read(id);
     return instance;
