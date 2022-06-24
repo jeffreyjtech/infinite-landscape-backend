@@ -165,6 +165,15 @@ describe('Testing each middlewares\' error catching', () => {
     expect(next).toHaveBeenCalledTimes(nextCount + 1);
   });
 
+  it('Throws error on bad param on GET with id', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await getIdHandler(errorCollection)(badParamReq, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
   it('Catches collection error on PUT route', async () => {
     const errorCount = console.error.mock.calls.length;
     const nextCount = next.mock.calls.length;
