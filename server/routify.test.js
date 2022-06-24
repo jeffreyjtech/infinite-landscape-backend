@@ -127,21 +127,11 @@ describe('Testing the individual middlewares', () => {
   });
 });
 
-describe('Testing each middlewares\' error catching', () => {
-
+describe('Testing each middleware catches collection errors', () => {
   it('Catches collection error on POST route', async () => {
     const errorCount = console.error.mock.calls.length;
     const nextCount = next.mock.calls.length;
     await postHandler(errorCollection)(req, res, next);
-    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
-    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
-    expect(next).toHaveBeenCalledTimes(nextCount + 1);
-  });
-
-  it('Throws error on bad body on POST', async () => {
-    const errorCount = console.error.mock.calls.length;
-    const nextCount = next.mock.calls.length;
-    await postHandler(errorCollection)(badBodyReq, res, next);
     expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
     expect(next).toHaveBeenLastCalledWith(expect.any(Error));
     expect(next).toHaveBeenCalledTimes(nextCount + 1);
@@ -165,15 +155,6 @@ describe('Testing each middlewares\' error catching', () => {
     expect(next).toHaveBeenCalledTimes(nextCount + 1);
   });
 
-  it('Throws error on bad param on GET with id', async () => {
-    const errorCount = console.error.mock.calls.length;
-    const nextCount = next.mock.calls.length;
-    await getIdHandler(errorCollection)(badParamReq, res, next);
-    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
-    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
-    expect(next).toHaveBeenCalledTimes(nextCount + 1);
-  });
-
   it('Catches collection error on PUT route', async () => {
     const errorCount = console.error.mock.calls.length;
     const nextCount = next.mock.calls.length;
@@ -187,6 +168,54 @@ describe('Testing each middlewares\' error catching', () => {
     const errorCount = console.error.mock.calls.length;
     const nextCount = next.mock.calls.length;
     await deleteHandler(errorCollection)(req, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+});
+
+describe('Each middleware throws error on bad requests', () => {
+
+  it('Throws error on bad body on POST', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await postHandler(testCollection)(badBodyReq, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
+  it('Throws error on bad param on GET with id', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await getIdHandler(testCollection)(badParamReq, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
+  it('Throws error on bad body on PUT', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await putHandler(testCollection)(badBodyReq, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
+  it('Throws error on bad param on PUT', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await putHandler(testCollection)(badParamReq, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
+  it('Throws error on bad param on DELETE', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await deleteHandler(testCollection)(badParamReq, res, next);
     expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
     expect(next).toHaveBeenLastCalledWith(expect.any(Error));
     expect(next).toHaveBeenCalledTimes(nextCount + 1);
