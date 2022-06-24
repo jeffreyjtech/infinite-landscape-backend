@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const express = require('express');
 const { profileCollection, storyCollection } = require('./models');
-const routify = require('./routify');
+const { routify } = require('./routify');
 const authRouter = require('./auth/routes');
 const graphRouter = require('./graphRouter');
 const router = express.Router();

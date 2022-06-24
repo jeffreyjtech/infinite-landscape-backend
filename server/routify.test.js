@@ -10,7 +10,14 @@ jest.mock('./auth/middleware/perms.js', () => (collection) => (req, res, next) =
   next();
 });
 
-const routify = require('./routify');
+const {
+  routify,
+  getHandler,
+  getIdHandler,
+  postHandler,
+  putHandler,
+  deleteHandler,
+} = require('./routify');
 
 const router = {
   post: jest.fn(),
@@ -28,9 +35,37 @@ const testCollection = {
   delete: jest.fn(),
 };
 
+const errorCollection = {
+  read: jest.fn(() => {
+    throw new Error();
+  }),
+  readAll: jest.fn(() => {
+    throw new Error();
+  }),
+  create: jest.fn(() => {
+    throw new Error();
+  }),
+  update: jest.fn(() => {
+    throw new Error();
+  }),
+  delete: jest.fn(() => {
+    throw new Error();
+  }),
+};
+
+console.error = jest.fn();
+
 const req = {
   params: { id: 1 },
   body: { test: 'test-body' },
+};
+
+const badParamReq = {
+  body: { test: 'test-body' },
+};
+
+const badBodyReq = {
+  params: { id: 1 },
 };
 
 const res = {
@@ -39,71 +74,150 @@ const res = {
 };
 const next = jest.fn();
 
-describe('Testing the router constructor', () => {
-  routify(testCollection, 'test', router);
+test('Routify calls router methods', () => {
+  routify(testCollection, 'test path', router);
 
-  // The .mock.calls array contains all the info about how a mock function has been invoked
-  // Middleware is added by invoking router.get/.post/.put,etc with a middleware function we've written
-  // Thus, it's possible to test our middleware by pulling the middleware function out of the calls array
-  // We invoke it in the test sequence and expect side-effects such as next being called. 
+  expect(router.get).toHaveBeenCalled();
+  expect(router.delete).toHaveBeenCalled();
+  expect(router.put).toHaveBeenCalled();
+  expect(router.post).toHaveBeenCalled();
+});
 
-  const getCall = router.get.mock.calls[0]; // Assign each call to a variable (for clarity)
-  const getIdCall = router.get.mock.calls[1]; 
-  const postCall = router.post.mock.calls[0];
-  const putCall = router.put.mock.calls[0];
-  const deleteCall = router.delete.mock.calls[0];
-  let middleware = {};
-  let middlewareIndex = 0;
+test('No DELETE route is added for profile path', async () => {
+  const deleteArgsCount = router.delete.mock.calls.length;
+  routify(testCollection, 'profile', router);
+  expect(router.delete).toHaveBeenCalledTimes(deleteArgsCount);
+});
 
-  it('Has a GET route', async () => {
-    middlewareIndex = getCall.length - 1; // Find our middleware by finding the last item in the list of arguments
-    middleware = getCall[middlewareIndex]; // Assign the middleware to a variable (for clarity)
-    await middleware(req, res, next); // Invoke the middleware
+describe('Testing the individual middlewares', () => {
+  test('GET handler reads all', async () => {
+    await getHandler(testCollection)(req, res, next); // Invoke the middleware
     // Expect various side effects to occur with our mocked collection methods and mocked express objects/methods
     expect(testCollection.readAll).toHaveBeenCalled();
-    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.status).toHaveBeenLastCalledWith(200);
     expect(res.json).toHaveBeenCalled();
   });
 
-  it('Has a GET with id route', async () => {
-    middlewareIndex = getIdCall.length - 1;
-    middleware = getIdCall[middlewareIndex];
-    await middleware(req, res, next);
-    expect(testCollection.read).toHaveBeenCalledWith(req.params.id);
-    expect(res.status).toHaveBeenCalledWith(200);
+  it('GET with id handler reads with id', async () => {
+    await getIdHandler(testCollection)(req, res, next);
+    expect(testCollection.read).toHaveBeenLastCalledWith(req.params.id);
+    expect(res.status).toHaveBeenLastCalledWith(200);
     expect(res.json).toHaveBeenCalled();
   });
 
-  it('Has a POST route', async () => {
-    middlewareIndex = postCall.length - 1;
-    middleware = postCall[middlewareIndex];
-    await middleware(req, res, next);
+  it('POST handler creates a document', async () => {
+    await postHandler(testCollection)(req, res, next);
     expect(testCollection.create).toBeCalledWith(req.body);
-    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.status).toHaveBeenLastCalledWith(201);
     expect(res.json).toHaveBeenCalled();
   });
 
-  it('Has a PUT route', async () => {
-    middlewareIndex = putCall.length - 1;
-    middleware = putCall[middlewareIndex];
-    await middleware(req, res, next);
-    expect(testCollection.update).toHaveBeenCalledWith(req.body, req.params.id);
-    expect(res.status).toHaveBeenCalledWith(200);
+  it('PUT handler updates a document', async () => {
+    await putHandler(testCollection)(req, res, next);
+    expect(testCollection.update).toHaveBeenLastCalledWith(req.body, req.params.id);
+    expect(res.status).toHaveBeenLastCalledWith(200);
     expect(res.json).toHaveBeenCalled();
   });
 
-  it('Has a DELETE route', async () => {
-    middlewareIndex = deleteCall.length - 1;
-    middleware = deleteCall[middlewareIndex];
-    await middleware(req, res, next);
-    expect(testCollection.delete).toHaveBeenCalledWith(req.params.id);
-    expect(res.status).toHaveBeenCalledWith(200);
+  it('DELETE handler deletes a document', async () => {
+    await deleteHandler(testCollection)(req, res, next);
+    expect(testCollection.delete).toHaveBeenLastCalledWith(req.params.id);
+    expect(res.status).toHaveBeenLastCalledWith(200);
     expect(res.json).toHaveBeenCalled();
   });
+});
 
-  routify(testCollection, 'profile', router);
+describe('Testing each middleware catches collection errors', () => {
+  it('Catches collection error on POST route', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await postHandler(errorCollection)(req, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
 
-  it('Does not have a DELETE route for profile path', () => {
-    expect(router.delete).toHaveBeenCalledTimes(1);
+  it('Catches collection error on GET route', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await getHandler(errorCollection)(req, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
+  it('Catches collection error on GET with id route', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await getIdHandler(errorCollection)(req, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
+  it('Catches collection error on PUT route', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await putHandler(errorCollection)(req, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
+  it('Catches collection error on DELETE route', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await deleteHandler(errorCollection)(req, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+});
+
+describe('Each middleware throws error on bad requests', () => {
+
+  it('Throws error on bad body on POST', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await postHandler(testCollection)(badBodyReq, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
+  it('Throws error on bad param on GET with id', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await getIdHandler(testCollection)(badParamReq, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
+  it('Throws error on bad body on PUT', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await putHandler(testCollection)(badBodyReq, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
+  it('Throws error on bad param on PUT', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await putHandler(testCollection)(badParamReq, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
+  });
+
+  it('Throws error on bad param on DELETE', async () => {
+    const errorCount = console.error.mock.calls.length;
+    const nextCount = next.mock.calls.length;
+    await deleteHandler(testCollection)(badParamReq, res, next);
+    expect(console.error).toHaveBeenCalledTimes(errorCount + 1);
+    expect(next).toHaveBeenLastCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledTimes(nextCount + 1);
   });
 });
