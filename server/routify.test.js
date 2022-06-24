@@ -74,7 +74,7 @@ const res = {
 };
 const next = jest.fn();
 
-test('Routify calls appropriate router methods', () => {
+test('Routify calls router methods', () => {
   routify(testCollection, 'test path', router);
 
   expect(router.get).toHaveBeenCalled();
