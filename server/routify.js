@@ -5,24 +5,21 @@ const perms = require('./auth/middleware/perms.js');
 
 const errorWithStatus = require('./error/ErrorWithStatus');
 
-const errorOnEmptyBody = (req, res, next) => {
+const _validateBody = (req) => {
   if (!req.body) {
-    next(errorWithStatus('Missing request body', 400));
-  } else {
-    next();
+    throw errorWithStatus('Missing request body', 400);
   }
 };
 
-const errorOnBadParam = (paramKey) => (req, res, next) => {
+const _validateParam = (req, paramKey) => {
   if (!req.params || !req.params[paramKey]) {
-    next(errorWithStatus(`Missing URL param: ${paramKey}`, 400));
-  } else {
-    next();
+    throw errorWithStatus(`Missing URL param: ${paramKey}`, 400);
   }
 };
 
 const postHandler = (collection) => async (req, res, next) => {
   try {
+    _validateBody(req);
     let record = await collection.create(req.body);
     res.status(201).json(record);
   } catch (e) {
@@ -43,6 +40,7 @@ const getHandler = (collection) => async (req, res, next) => {
 
 const getIdHandler = (collection) => async (req, res, next) => {
   try {
+    _validateParam(req, 'id');
     let record = await collection.read(req.params.id);
     res.status(200).json(record);
   } catch (e) {
@@ -53,6 +51,8 @@ const getIdHandler = (collection) => async (req, res, next) => {
 
 const putHandler = (collection) => async (req, res, next) => {
   try {
+    _validateBody(req);
+    _validateParam(req, 'id');
     let record = await collection.update(req.body, req.params.id);
     res.status(200).json(record);
   } catch (e) {
@@ -63,6 +63,7 @@ const putHandler = (collection) => async (req, res, next) => {
 
 const deleteHandler = (collection) => async (req, res, next) => {
   try {
+    _validateParam(req, 'id');
     let record = await collection.delete(req.params.id);
     res.status(200).json(record);
   } catch (e) {
@@ -73,16 +74,14 @@ const deleteHandler = (collection) => async (req, res, next) => {
 
 module.exports = {
   routify: (collection, path, router) => {
-    router.post(`/${path}`, errorOnEmptyBody, bearerAuth, postHandler(collection));
+    router.post(`/${path}`, bearerAuth, postHandler(collection));
 
     router.get(`/${path}`, getHandler(collection));
 
-    router.get(`/${path}/:id`, errorOnBadParam('id'), getIdHandler(collection));
+    router.get(`/${path}/:id`, getIdHandler(collection));
 
     router.put(
       `/${path}/:id`,
-      errorOnBadParam('id'),
-      errorOnEmptyBody,
       bearerAuth,
       perms(collection),
       putHandler(collection),
@@ -91,7 +90,6 @@ module.exports = {
     if (path !== 'profile') {
       router.delete(
         `/${path}/:id`,
-        errorOnBadParam('id'),
         bearerAuth,
         perms(collection),
         deleteHandler(collection),
