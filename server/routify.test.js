@@ -45,10 +45,9 @@ describe('Testing the router constructor', () => {
   // The .mock.calls array contains all the info about how a mock function has been invoked
   // Middleware is added by invoking router.get/.post/.put,etc with a middleware function we've written
   // Thus, it's possible to test our middleware by pulling the middleware function out of the calls array
-  // We invoke it in the test sequence and expect side-effects such as next being called. 
+  // We invoke it in the test sequence and expect side-effects such as next being called.
 
-  const getCall = router.get.mock.calls[0]; // Assign each call to a variable (for clarity)
-  const getIdCall = router.get.mock.calls[1]; 
+  const [getCall, getIdCall] = router.get.mock.calls; // Assign each call to a variable (for clarity)
   const postCall = router.post.mock.calls[0];
   const putCall = router.put.mock.calls[0];
   const deleteCall = router.delete.mock.calls[0];
