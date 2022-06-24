@@ -53,7 +53,7 @@ describe('Testing profile model', () => {
   it('Reads all records', async () => {
     const profileRecords = await profileCollection.readAll();
     expect(profileRecords).toBeInstanceOf(Array);
-    expect(profileRecords.length).toBe(1);
+    expect(profileRecords.length).toBeGreaterThanOrEqual(1);
   });
 
   it('Updates a record', async () => {
